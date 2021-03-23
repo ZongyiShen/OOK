@@ -57,7 +57,7 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
-
+bool times = true;
 namespace game_framework {
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -201,6 +201,7 @@ namespace game_framework {
 		y = 70;
 		logo.LoadBitmap(IDB_INITSELECTBOX);
 		logo.SetTopLeft(x, y);
+		CAudio::Instance()->Load(AUDIO_DING, "sounds\\click.mp3");
 		//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 		//
 		// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
@@ -209,6 +210,12 @@ namespace game_framework {
 
 	void CGameStateInit::OnBeginState()
 	{
+		if (times) {
+			CAudio::Instance()->Load(AUDIO_LAKE, "sounds\\menu.mp3");
+			times = false;
+		}
+
+		CAudio::Instance()->Play(AUDIO_LAKE, true);
 	}
 
 	void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -223,6 +230,8 @@ namespace game_framework {
 		//const char KEY_ENTER = 0;
 		if (nChar == KEY_ENTER) {
 			if (y == 70) {
+				CAudio::Instance()->Play(AUDIO_DING);
+				CAudio::Instance()->Stop(AUDIO_LAKE);
 				GotoGameState(GAME_STATE_RUN);// 切換至GAME_STATE_RUN
 			}
 			else if (y >= 270) {
@@ -369,7 +378,7 @@ namespace game_framework {
 		help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 		hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
 		hits_left.SetTopLeft(HITS_LEFT_X, HITS_LEFT_Y);		// 指定剩下撞擊數的座標
-		CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
+		//CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 		CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 		CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
 	}
@@ -408,7 +417,7 @@ namespace game_framework {
 				// 若剩餘碰撞次數為0，則跳到Game Over狀態
 				//
 				if (hits_left.GetInteger() <= 0) {
-					CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+					//CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
 					CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 					GotoGameState(GAME_STATE_OVER);
 				}
@@ -464,9 +473,9 @@ namespace game_framework {
 		hits_left.LoadBitmap();
 		c_practice.LoadBitmap();
 		gamemap.LoadBitmap();
-		CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
-		CAudio::Instance()->Load(AUDIO_LAKE, "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
-		CAudio::Instance()->Load(AUDIO_NTUT, "sounds\\ntut.mid");	// 載入編號2的聲音ntut.mid
+		//CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
+		//CAudio::Instance()->Load(AUDIO_LAKE, "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
+		CAudio::Instance()->Load(AUDIO_NTUT, "sounds\\1-1.mp3");	// 載入編號2的聲音ntut.mid
 		//
 		// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 		//
