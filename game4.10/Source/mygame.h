@@ -41,6 +41,7 @@
 #include "CEraser.h"
 #include "CBall.h"
 #include "CBouncingBall.h"
+#include "ClongGray.h"
 
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
@@ -77,6 +78,7 @@ namespace game_framework {
 		void LoadBitmap();
 		void OnMove();
 		void OnShow();
+		int getX();
 	private:
 		CMovingBitmap pic;
 		int x, y;
@@ -135,6 +137,7 @@ namespace game_framework {
 		CMovingBitmap long_gray;
 		CPractice c_practice;
 		CGameMap gamemap;
+		ClongGray test1;
 		
 	};
 
