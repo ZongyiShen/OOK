@@ -106,7 +106,7 @@ IDB_LOADING             BITMAP                  "..\\res\\loading.bmp"
 
 IDB_TEST                BITMAP                  "..\\res\\test.bmp"
 
-IDB_BITMAP3             BITMAP                  "C:\\Users\\Lenovo 3i\\Desktop\\oopl2020s-master\\4. Source Code\\game4.10\\RES\\bitmap3.bmp"
+IDB_BITMAP3             BITMAP                  "..\\res\\bitmap3.bmp"
 
 IDB_BLUE                BITMAP                  "..\\res\\bitmapBlue.bmp"
 
@@ -116,9 +116,9 @@ IDB_BITMAP4             BITMAP                  "..\\res\\bitmap4.bmp"
 
 IDB_INITSELECTBOX       BITMAP                  "..\\res\\bitmap6.bmp"
 
-IDB_TITLE1              BITMAP                  "C:\\Users\\Lenovo 3i\\Desktop\\oopl2020s-master\\4. Source Code\\game4.10\\RES\\gametitle.bmp"
+IDB_TITLE1              BITMAP                  "..\\res\\gametitle.bmp"
 
-IDB_TITLE2              BITMAP                  "C:\\Users\\Lenovo 3i\\Desktop\\oopl2020s-master\\4. Source Code\\game4.10\\RES\\gameTitle012.bmp"
+IDB_TITLE2              BITMAP                  "..\\res\\gameTitle012.bmp"
 
 IDB_LONGGRAY            BITMAP                  "..\\res\\bitmap5.bmp"
 
