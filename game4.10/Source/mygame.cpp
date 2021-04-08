@@ -239,11 +239,13 @@ namespace game_framework {
 			}
 		}
 		else if (nChar == KEY_DOWN) {
+			CAudio::Instance()->Play(AUDIO_DING);
 			if (y < 270)
 				y += 200;
 			logo.SetTopLeft(450, y);
 		}
 		else if (nChar == KEY_UP) {
+			CAudio::Instance()->Play(AUDIO_DING);
 			if (y >= 170)
 				y -= 200;
 			logo.SetTopLeft(450, y);
