@@ -62,6 +62,7 @@
 #include <ctime>
 #include <iostream>
 bool times = true;
+bool h = false;
 void delay()
 	{
 			time_t start_time, cur_time; // 变量声明
@@ -322,6 +323,7 @@ namespace game_framework {
 		
 		
 		hand.SetDelayCount(1);
+		hand.SetIsMove(false);
 		background.SetTopLeft(BACKGROUND_X, 0);				// 設定背景的起始座標
 		help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
 		hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
@@ -352,8 +354,15 @@ namespace game_framework {
 		if (background.Top() > SIZE_Y)
 			background.SetTopLeft(60, -background.Height());
 		background.SetTopLeft(0, 0);
-		
-
+		if (hand.isMove()) {
+			hand.OnMove();
+			h = true;
+		}
+		else if (h)
+		{
+			hand.OnMove();
+			h = false;
+		}
 		//
 		// 移動擦子
 		//
@@ -364,7 +373,7 @@ namespace game_framework {
 		//
 		// 移動彈跳的球
 		//
-		hand.OnMove();
+		
 		c_practice.OnMove();
 		/*
 		if (c_practice.getX() == 450 && test1.IsAlive()) {
@@ -402,8 +411,8 @@ namespace game_framework {
 		//
 		// 繼續載入其他資料
 		//
-		hand.AddBitmap(IDB_HAND1);
 		hand.AddBitmap(IDB_HAND2);
+		hand.AddBitmap(IDB_HAND1);
 		test.LoadBitmap(IDB_INITSELECTBOX);
 		help.LoadBitmap(IDB_HELP, RGB(255, 255, 255));				// 載入說明的圖形
 		corner.LoadBitmap(IDB_CORNER);							// 載入角落圖形
@@ -446,9 +455,8 @@ namespace game_framework {
 			//test1.SetIsShow(!test1.IsShow
 			CAudio::Instance()->Play(AUDIO_DING);
 			test1.SetIsShow(true);
-			
-			
-			
+			hand.SetIsMove(true);
+			h = true;
 			//hand2.SetIsShow(true);
 			
 			//test1.OnShow();
@@ -514,6 +522,8 @@ namespace game_framework {
 		test1.SetIsShow(false);
 		hand.SetTopLeft(640 - 479, 480 - 75);
 		hand.OnShow();
+		hand.SetIsMove(false);
+		//hand.OnMove();
 		//
 		//  貼上左上及右下角落的圖
 		//
