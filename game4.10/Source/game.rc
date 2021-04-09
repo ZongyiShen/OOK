@@ -122,6 +122,12 @@ IDB_TITLE2              BITMAP                  "..\\res\\gameTitle012.bmp"
 
 IDB_LONGGRAY            BITMAP                  "..\\res\\bitmap5.bmp"
 
+IDB_BITMAP6             BITMAP                  "..\\res\\bmp00001.bmp"
+
+IDB_HAND1               BITMAP                  "..\\res\\hand1.bmp"
+
+IDB_HAND2               BITMAP                  "..\\res\\hand2.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

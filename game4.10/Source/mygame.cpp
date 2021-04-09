@@ -1,5 +1,5 @@
-/*
- * mygame.cpp: ¥»ÀÉ®×Àx¹CÀ¸¥»¨­ªºclassªºimplementation
+ï»¿/*
+ * mygame.cpp: æœ¬æª”æ¡ˆå„²éŠæˆ²æœ¬èº«çš„classçš„implementation
  * Copyright (C) 2002-2008 Woei-Kae Chen <wkc@csie.ntut.edu.tw>
  *
  * This file is part of game, a free game development framework for windows.
@@ -57,18 +57,25 @@
 #include "audio.h"
 #include "gamelib.h"
 #include "mygame.h"
+#include <cstdlib>
+#include <time.h>
 #include <ctime>
+#include <iostream>
 bool times = true;
+void delay()
+	{
+			time_t start_time, cur_time; // å˜é‡å£°æ˜
+			time(&start_time);
+			do {
+			 time(&cur_time);
+			} while ((cur_time - start_time) < 1);
+	}
 namespace game_framework {
 
-	void   Delay(int   time)
-	{
-		clock_t   now = clock();
 
-		while (clock() - now < time);
-	}
+	
 	/////////////////////////////////////////////////////////////////////////////
-	// ³o­Óclass¬°¹CÀ¸ªº¹CÀ¸¶}ÀYµe­±ª«¥ó
+	// é€™å€‹classç‚ºéŠæˆ²çš„éŠæˆ²é–‹é ­ç•«é¢ç‰©ä»¶
 	/////////////////////////////////////////////////////////////////////////////
 	CGameStateInit::CGameStateInit(CGame* g)
 		: CGameState(g)
@@ -78,20 +85,29 @@ namespace game_framework {
 		x = 30;
 		y = 150;
 	}
+	int i = 0;
 	void CPractice::OnMove() {
-		if (x <= 470) {
-			x += 5;
+		int const interval[7] = { 90,150,210,270,330,390,450 };
+		if (x <= 450) {
+			x += 6;
+			
 		}
 		else {
 			x = 30;
 			y = 150;
 		}
 		//30 90 150 210 270 330 390 450
-		if (x == 150 || x==270 || x == 390 ) {
-			y = 150;
-		}
-		else if (x == 90 || x == 210 || x == 330|| x == 450) {
-			y = 50;
+		if (x >= interval[i]) {
+			if (i % 2 == 0) {
+				y = 50;
+			}
+			else {
+				y = 150;
+			}
+			i++;
+		} 
+		if (x >= 450) {
+			i = 0;
 		}
 	}
 	void CPractice::LoadBitmap() {
@@ -120,12 +136,12 @@ namespace game_framework {
 	void CGameStateInit::OnInit()
 	{
 		//
-		// ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-		//     µ¥ªº¤£­@·Ğ¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+		// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+		//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
 		//
-		ShowInitProgress(0);	// ¤@¶}©lªºloading¶i«×¬°0%
+		ShowInitProgress(0);	// ä¸€é–‹å§‹çš„loadingé€²åº¦ç‚º0%
 		//
-		// ¶}©l¸ü¤J¸ê®Æ
+		// é–‹å§‹è¼‰å…¥è³‡æ–™
 		//
 		title.LoadBitmap(IDB_TITLE1);
 		title.SetTopLeft(0, 40);
@@ -134,9 +150,9 @@ namespace game_framework {
 		logo.LoadBitmap(IDB_INITSELECTBOX);
 		logo.SetTopLeft(x, y);
 		CAudio::Instance()->Load(AUDIO_DING, "sounds\\click.mp3");
-		//Sleep(300);				// ©ñºC¡A¥H«K¬İ²M·¡¶i«×¡A¹ê»Ú¹CÀ¸½Ğ§R°£¦¹Sleep
+		//Sleep(300);				// æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
 		//
-		// ¦¹OnInit°Ê§@·|±µ¨ìCGameStaterRun::OnInit()¡A©Ò¥H¶i«×ÁÙ¨S¨ì100%
+		// æ­¤OnInitå‹•ä½œæœƒæ¥åˆ°CGameStaterRun::OnInit()ï¼Œæ‰€ä»¥é€²åº¦é‚„æ²’åˆ°100%
 		//
 	}
 
@@ -155,19 +171,19 @@ namespace game_framework {
 		const char KEY_ESC = 27;
 		const char KEY_SPACE = ' ';
 		const char KEY_ENTER = 13;
-		const char KEY_LEFT = 0x25; // keyboard¥ª½bÀY
-		const char KEY_UP = 0x26; // keyboard¤W½bÀY
-		const char KEY_RIGHT = 0x27; // keyboard¥k½bÀY
-		const char KEY_DOWN = 0x28; // keyboard¤U½bÀY
+		const char KEY_LEFT = 0x25; // keyboardå·¦ç®­é ­
+		const char KEY_UP = 0x26; // keyboardä¸Šç®­é ­
+		const char KEY_RIGHT = 0x27; // keyboardå³ç®­é ­
+		const char KEY_DOWN = 0x28; // keyboardä¸‹ç®­é ­
 		//const char KEY_ENTER = 0;
 		if (nChar == KEY_ENTER) {
 			if (y == 70) {
 				CAudio::Instance()->Play(AUDIO_DING);
 				CAudio::Instance()->Stop(AUDIO_LAKE);
-				GotoGameState(GAME_STATE_RUN);// ¤Á´«¦ÜGAME_STATE_RUN
+				GotoGameState(GAME_STATE_RUN);// åˆ‡æ›è‡³GAME_STATE_RUN
 			}
 			else if (y >= 270) {
-				PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// Ãö³¬¹CÀ¸
+				PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// é—œé–‰éŠæˆ²
 			}
 		}
 		else if (nChar == KEY_DOWN) {
@@ -182,45 +198,45 @@ namespace game_framework {
 				y -= 200;
 			logo.SetTopLeft(450, y);
 		}
-		else if (nChar == KEY_ESC)								// Demo Ãö³¬¹CÀ¸ªº¤èªk
-			PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// Ãö³¬¹CÀ¸
+		else if (nChar == KEY_ESC)								// Demo é—œé–‰éŠæˆ²çš„æ–¹æ³•
+			PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// é—œé–‰éŠæˆ²
 	}
 
 	void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 	{
-		GotoGameState(GAME_STATE_RUN);		// ¤Á´«¦ÜGAME_STATE_RUN
+		GotoGameState(GAME_STATE_RUN);		// åˆ‡æ›è‡³GAME_STATE_RUN
 	}
 
 	void CGameStateInit::OnShow()
 	{
 		//
-		// ¶K¤Wlogo
+		// è²¼ä¸Šlogo
 		//
 		//logo.SetTopLeft((SIZE_X - logo.Width())/2, SIZE_Y/8);
 		title.ShowBitmap();
 		logo.ShowBitmap();
 		//
-		// Demo¿Ã¹õ¦r«¬ªº¨Ï¥Î¡A¤£¹L¶}µo®É½ĞºÉ¶qÁ×§Kª½±µ¨Ï¥Î¦r«¬¡A§ï¥ÎCMovingBitmap¤ñ¸û¦n
+		// Demoè¢å¹•å­—å‹çš„ä½¿ç”¨ï¼Œä¸éé–‹ç™¼æ™‚è«‹ç›¡é‡é¿å…ç›´æ¥ä½¿ç”¨å­—å‹ï¼Œæ”¹ç”¨CMovingBitmapæ¯”è¼ƒå¥½
 		//
-		CDC* pDC = CDDraw::GetBackCDC();			// ¨ú±o Back Plain ªº CDC 
+		CDC* pDC = CDDraw::GetBackCDC();			// å–å¾— Back Plain çš„ CDC 
 		CFont f, * fp;
-		f.CreatePointFont(160, "Times New Roman");	// ²£¥Í font f; 160ªí¥Ü16 pointªº¦r
-		fp = pDC->SelectObject(&f);					// ¿ï¥Î font f
+		f.CreatePointFont(160, "Times New Roman");	// ç”¢ç”Ÿ font f; 160è¡¨ç¤º16 pointçš„å­—
+		fp = pDC->SelectObject(&f);					// é¸ç”¨ font f
 		pDC->SetBkColor(RGB(0, 0, 0));
 		pDC->SetTextColor(RGB(255, 255, 200));
 
-		pDC->TextOut(450, 105, "¶}©l¹CÀ¸");
+		pDC->TextOut(450, 105, "é–‹å§‹éŠæˆ²");
 
-		//pDC->TextOut(300,205,"Ctrl-F ¤Á´«¦Ü¥ş¿Ã¹õ©Îµøµ¡");
+		//pDC->TextOut(300,205,"Ctrl-F åˆ‡æ›è‡³å…¨è¢å¹•æˆ–è¦–çª—");
 		//if (ENABLE_GAME_PAUSE)
-			//pDC->TextOut(300,305,"Ctrl-Q ¼È°±¹CÀ¸");
-		pDC->TextOut(450, 305, "Â÷¶}¹CÀ¸");
-		pDC->SelectObject(fp);						// ©ñ±¼ font f (¤d¸U¤£­nº|¤F©ñ±¼)
-		CDDraw::ReleaseBackCDC();					// ©ñ±¼ Back Plain ªº CDC
+			//pDC->TextOut(300,305,"Ctrl-Q æš«åœéŠæˆ²");
+		pDC->TextOut(450, 305, "é›¢é–‹éŠæˆ²");
+		pDC->SelectObject(fp);						// æ”¾æ‰ font f (åƒè¬ä¸è¦æ¼äº†æ”¾æ‰)
+		CDDraw::ReleaseBackCDC();					// æ”¾æ‰ Back Plain çš„ CDC
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
-	// ³o­Óclass¬°¹CÀ¸ªºµ²§ôª¬ºA(Game Over)
+	// é€™å€‹classç‚ºéŠæˆ²çš„çµæŸç‹€æ…‹(Game Over)
 	/////////////////////////////////////////////////////////////////////////////
 
 	CGameStateOver::CGameStateOver(CGame* g)
@@ -243,37 +259,37 @@ namespace game_framework {
 	void CGameStateOver::OnInit()
 	{
 		//
-		// ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-		//     µ¥ªº¤£­@·Ğ¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+		// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+		//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
 		//
-		ShowInitProgress(66);	// ±µ­Ó«e¤@­Óª¬ºAªº¶i«×¡A¦¹³B¶i«×µø¬°66%
+		ShowInitProgress(66);	// æ¥å€‹å‰ä¸€å€‹ç‹€æ…‹çš„é€²åº¦ï¼Œæ­¤è™•é€²åº¦è¦–ç‚º66%
 		//
-		// ¶}©l¸ü¤J¸ê®Æ
+		// é–‹å§‹è¼‰å…¥è³‡æ–™
 		//
-		Sleep(300);				// ©ñºC¡A¥H«K¬İ²M·¡¶i«×¡A¹ê»Ú¹CÀ¸½Ğ§R°£¦¹Sleep
+		Sleep(300);				// æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
 		//
-		// ³Ì²×¶i«×¬°100%
+		// æœ€çµ‚é€²åº¦ç‚º100%
 		//
 		ShowInitProgress(100);
 	}
 
 	void CGameStateOver::OnShow()
 	{
-		CDC* pDC = CDDraw::GetBackCDC();			// ¨ú±o Back Plain ªº CDC 
+		CDC* pDC = CDDraw::GetBackCDC();			// å–å¾— Back Plain çš„ CDC 
 		CFont f, * fp;
-		f.CreatePointFont(160, "Times New Roman");	// ²£¥Í font f; 160ªí¥Ü16 pointªº¦r
-		fp = pDC->SelectObject(&f);					// ¿ï¥Î font f
+		f.CreatePointFont(160, "Times New Roman");	// ç”¢ç”Ÿ font f; 160è¡¨ç¤º16 pointçš„å­—
+		fp = pDC->SelectObject(&f);					// é¸ç”¨ font f
 		pDC->SetBkColor(RGB(0, 0, 0));
 		pDC->SetTextColor(RGB(255, 255, 0));
-		char str[80];								// Demo ¼Æ¦r¹ï¦r¦êªºÂà´«
+		char str[80];								// Demo æ•¸å­—å°å­—ä¸²çš„è½‰æ›
 		sprintf(str, "Game JAR ! (%d)", counter / 30);
 		pDC->TextOut(240, 210, str);
-		pDC->SelectObject(fp);						// ©ñ±¼ font f (¤d¸U¤£­nº|¤F©ñ±¼)
-		CDDraw::ReleaseBackCDC();					// ©ñ±¼ Back Plain ªº CDC
+		pDC->SelectObject(fp);					// æ”¾æ‰ font f (åƒè¬ä¸è¦æ¼äº†æ”¾æ‰)
+		CDDraw::ReleaseBackCDC();					// æ”¾æ‰ Back Plain çš„ CDC
 	}
 
 	/////////////////////////////////////////////////////////////////////////////
-	// ³o­Óclass¬°¹CÀ¸ªº¹CÀ¸°õ¦æª«¥ó¡A¥D­nªº¹CÀ¸µ{¦¡³£¦b³o¸Ì
+	// é€™å€‹classç‚ºéŠæˆ²çš„éŠæˆ²åŸ·è¡Œç‰©ä»¶ï¼Œä¸»è¦çš„éŠæˆ²ç¨‹å¼éƒ½åœ¨é€™è£¡
 	/////////////////////////////////////////////////////////////////////////////
 
 	CGameStateRun::CGameStateRun(CGame* g)
@@ -289,6 +305,7 @@ namespace game_framework {
 
 	void CGameStateRun::OnBeginState()
 	{
+		LoadKeyboardLayout("0x0409", KLF_ACTIVATE | KLF_SETFORPROCESS);
 		const int BALL_GAP = 90;
 		const int BALL_XY_OFFSET = 45;
 		const int BALL_PER_ROW = 7;
@@ -301,48 +318,61 @@ namespace game_framework {
 		test1.SetXY(450, 0);
 		test1.SetIsAlive(true);
 		test1.SetIsShow(false);
-
-		background.SetTopLeft(BACKGROUND_X, 0);				// ³]©w­I´ºªº°_©l®y¼Ğ
-		help.SetTopLeft(0, SIZE_Y - help.Height());			// ³]©w»¡©ú¹Ïªº°_©l®y¼Ğ
-		hits_left.SetInteger(HITS_LEFT);					// «ü©w³Ñ¤Uªº¼²À»¼Æ
-		hits_left.SetTopLeft(HITS_LEFT_X, HITS_LEFT_Y);		// «ü©w³Ñ¤U¼²À»¼Æªº®y¼Ğ
-		//CAudio::Instance()->Play(AUDIO_LAKE, true);			// ¼·©ñ WAVE
-		CAudio::Instance()->Play(AUDIO_DING, false);		// ¼·©ñ WAVE
-		CAudio::Instance()->Play(AUDIO_NTUT, true);			// ¼·©ñ MIDI
+		//hand2.SetXY(SIZE_X - hand1.Width() - 20, SIZE_Y - hand1.Height());
+		
+		
+		hand.SetDelayCount(1);
+		background.SetTopLeft(BACKGROUND_X, 0);				// è¨­å®šèƒŒæ™¯çš„èµ·å§‹åº§æ¨™
+		help.SetTopLeft(0, SIZE_Y - help.Height());			// è¨­å®šèªªæ˜åœ–çš„èµ·å§‹åº§æ¨™
+		hits_left.SetInteger(HITS_LEFT);					// æŒ‡å®šå‰©ä¸‹çš„æ’æ“Šæ•¸
+		hits_left.SetTopLeft(HITS_LEFT_X, HITS_LEFT_Y);		// æŒ‡å®šå‰©ä¸‹æ’æ“Šæ•¸çš„åº§æ¨™
+		//CAudio::Instance()->Play(AUDIO_LAKE, true);			// æ’¥æ”¾ WAVE
+		CAudio::Instance()->Play(AUDIO_DING, false);		// æ’¥æ”¾ WAVE
+		CAudio::Instance()->Play(AUDIO_NTUT, true);			// æ’¥æ”¾ MIDI
 	}
 
-	void CGameStateRun::OnMove()							// ²¾°Ê¹CÀ¸¤¸¯À
+	void CGameStateRun::OnMove()							// ç§»å‹•éŠæˆ²å…ƒç´ 
 	{
 		//
-		// ¦pªG§Æ±æ­×§ïcursorªº¼Ë¦¡¡A«h±N¤U­±µ{¦¡ªºcommment¨ú®ø§Y¥i
+		// å¦‚æœå¸Œæœ›ä¿®æ”¹cursorçš„æ¨£å¼ï¼Œå‰‡å°‡ä¸‹é¢ç¨‹å¼çš„commmentå–æ¶ˆå³å¯
 		//
 		// SetCursor(AfxGetApp()->LoadCursor(IDC_GAMECURSOR));
 		//
-		// ²¾°Ê­I´º¹Ïªº®y¼Ğ
+		// ç§»å‹•èƒŒæ™¯åœ–çš„åº§æ¨™
 		//
+		
+		int const min = 20;
+		int const max = 480;
+		int const minx = 0;
+		int const maxx = 400;
+
+		/* ç”¢ç”Ÿ [min , max] çš„æ•´æ•¸äº‚æ•¸ */
+		int x = rand() % (max - min + 1) + min;
+		int y = rand() % (maxx + 1) + 0;
 		if (background.Top() > SIZE_Y)
 			background.SetTopLeft(60, -background.Height());
-		background.SetTopLeft(background.Left(), background.Top() + 1);
+		background.SetTopLeft(0, 0);
 		
 
 		//
-		// ²¾°ÊÀ¿¤l
+		// ç§»å‹•æ“¦å­
 		//
 		//
-		// §PÂ_À¿¤l¬O§_¸I¨ì²y
+		// åˆ¤æ–·æ“¦å­æ˜¯å¦ç¢°åˆ°çƒ
 		//
 
 		//
-		// ²¾°Ê¼u¸õªº²y
+		// ç§»å‹•å½ˆè·³çš„çƒ
 		//
+		hand.OnMove();
 		c_practice.OnMove();
 		/*
 		if (c_practice.getX() == 450 && test1.IsAlive()) {
 			CAudio::Instance()->Play(AUDIO_DING);
 			hits_left.Add(-1);
 			if (hits_left.GetInteger() <= 0) {
-				CAudio::Instance()->Stop(AUDIO_LAKE);	// °±¤î WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// °±¤î MIDI
+				CAudio::Instance()->Stop(AUDIO_LAKE);	// åœæ­¢ WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// åœæ­¢ MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
@@ -351,104 +381,114 @@ namespace game_framework {
 		//gamemap.OnMove();
 	}
 
-	void CGameStateRun::OnInit()  								// ¹CÀ¸ªºªì­È¤Î¹Ï§Î³]©w
+	void CGameStateRun::OnInit()  								// éŠæˆ²çš„åˆå€¼åŠåœ–å½¢è¨­å®š
 	{
 		//
-		// ·í¹Ï«Ü¦h®É¡AOnInit¸ü¤J©Ò¦³ªº¹Ï­nªá«Ü¦h®É¶¡¡C¬°Á×§Kª±¹CÀ¸ªº¤H
-		//     µ¥ªº¤£­@·Ğ¡A¹CÀ¸·|¥X²{¡uLoading ...¡v¡AÅã¥ÜLoadingªº¶i«×¡C
+		// ç•¶åœ–å¾ˆå¤šæ™‚ï¼ŒOnInitè¼‰å…¥æ‰€æœ‰çš„åœ–è¦èŠ±å¾ˆå¤šæ™‚é–“ã€‚ç‚ºé¿å…ç©éŠæˆ²çš„äºº
+		//     ç­‰çš„ä¸è€ç…©ï¼ŒéŠæˆ²æœƒå‡ºç¾ã€ŒLoading ...ã€ï¼Œé¡¯ç¤ºLoadingçš„é€²åº¦ã€‚
 		//
-		ShowInitProgress(33);	// ±µ­Ó«e¤@­Óª¬ºAªº¶i«×¡A¦¹³B¶i«×µø¬°33%
+		ShowInitProgress(33);	// æ¥å€‹å‰ä¸€å€‹ç‹€æ…‹çš„é€²åº¦ï¼Œæ­¤è™•é€²åº¦è¦–ç‚º33%
 		//
-		// ¶}©l¸ü¤J¸ê®Æ
+		// é–‹å§‹è¼‰å…¥è³‡æ–™
 		//
 
-		test1.LoadBitmap();
-
-		background.LoadBitmap(IDB_BACKGROUND);					// ¸ü¤J­I´ºªº¹Ï§Î
+		test1.LoadBitmap(177);
+		background.LoadBitmap(IDB_BACKGROUND);					// è¼‰å…¥èƒŒæ™¯çš„åœ–å½¢
 		//
-		// §¹¦¨³¡¤ÀLoading°Ê§@¡A´£°ª¶i«×
+		// å®Œæˆéƒ¨åˆ†Loadingå‹•ä½œï¼Œæé«˜é€²åº¦
 		//
 		ShowInitProgress(50);
-		Sleep(300); // ©ñºC¡A¥H«K¬İ²M·¡¶i«×¡A¹ê»Ú¹CÀ¸½Ğ§R°£¦¹Sleep
+		Sleep(300); // æ”¾æ…¢ï¼Œä»¥ä¾¿çœ‹æ¸…æ¥šé€²åº¦ï¼Œå¯¦éš›éŠæˆ²è«‹åˆªé™¤æ­¤Sleep
 		//
-		// Ä~Äò¸ü¤J¨ä¥L¸ê®Æ
+		// ç¹¼çºŒè¼‰å…¥å…¶ä»–è³‡æ–™
 		//
+		hand.AddBitmap(IDB_HAND1);
+		hand.AddBitmap(IDB_HAND2);
 		test.LoadBitmap(IDB_INITSELECTBOX);
-		help.LoadBitmap(IDB_HELP, RGB(255, 255, 255));				// ¸ü¤J»¡©úªº¹Ï§Î
-		corner.LoadBitmap(IDB_CORNER);							// ¸ü¤J¨¤¸¨¹Ï§Î
-		corner.ShowBitmap(background);							// ±Ncorner¶K¨ìbackground
-		//bball.LoadBitmap();										// ¸ü¤J¹Ï§Î
+		help.LoadBitmap(IDB_HELP, RGB(255, 255, 255));				// è¼‰å…¥èªªæ˜çš„åœ–å½¢
+		corner.LoadBitmap(IDB_CORNER);							// è¼‰å…¥è§’è½åœ–å½¢
+		corner.ShowBitmap(background);							// å°‡cornerè²¼åˆ°background
+		//bball.LoadBitmap();										// è¼‰å…¥åœ–å½¢
 		hits_left.LoadBitmap();
 		c_practice.LoadBitmap();
 		//gamemap.LoadBitmap();
-		//CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding.wav");	// ¸ü¤J½s¸¹0ªºÁn­µding.wav
-		//CAudio::Instance()->Load(AUDIO_LAKE, "sounds\\lake.mp3");	// ¸ü¤J½s¸¹1ªºÁn­µlake.mp3
-		CAudio::Instance()->Load(AUDIO_NTUT, "sounds\\1-1.mp3");	// ¸ü¤J½s¸¹2ªºÁn­µntut.mid
+		//CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding.wav");	// è¼‰å…¥ç·¨è™Ÿ0çš„è²éŸ³ding.wav
+		//CAudio::Instance()->Load(AUDIO_LAKE, "sounds\\lake.mp3");	// è¼‰å…¥ç·¨è™Ÿ1çš„è²éŸ³lake.mp3
+		CAudio::Instance()->Load(AUDIO_NTUT, "sounds\\1-1.mp3");	// è¼‰å…¥ç·¨è™Ÿ2çš„è²éŸ³ntut.mid
 		//
-		// ¦¹OnInit°Ê§@·|±µ¨ìCGameStaterOver::OnInit()¡A©Ò¥H¶i«×ÁÙ¨S¨ì100%
+		// æ­¤OnInitå‹•ä½œæœƒæ¥åˆ°CGameStaterOver::OnInit()ï¼Œæ‰€ä»¥é€²åº¦é‚„æ²’åˆ°100%
 		//
 	}
 
 	void CGameStateRun::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
-		const char KEY_LEFT = 0x25; // keyboard¥ª½bÀY
-		const char KEY_UP = 0x26; // keyboard¤W½bÀY
-		const char KEY_RIGHT = 0x27; // keyboard¥k½bÀY
-		const char KEY_DOWN = 0x28; // keyboard¤U½bÀY
+		const char KEY_LEFT = 0x25; // keyboardå·¦ç®­é ­
+		const char KEY_UP = 0x26; // keyboardä¸Šç®­é ­
+		const char KEY_RIGHT = 0x27; // keyboardå³ç®­é ­
+		const char KEY_DOWN = 0x28; // keyboardä¸‹ç®­é ­
 		const char KEY_SPACE = ' ';
 		if (nChar == KEY_SPACE) {
 			//test1.SetIsShow(!test1.IsShow());
 			//test1.OnShow();
-			test1.SetIsShow(true);
+			//test1.SetIsShow(true); 2021/04/08
 		}
 	}
-
+	bool H = false;
 	void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
-		const char KEY_LEFT = 0x25; // keyboard¥ª½bÀY
-		const char KEY_UP = 0x26; // keyboard¤W½bÀY
-		const char KEY_RIGHT = 0x27; // keyboard¥k½bÀY
-		const char KEY_DOWN = 0x28; // keyboard¤U½bÀY
+		const char KEY_LEFT = 0x25; // keyboardå·¦ç®­é ­
+		const char KEY_UP = 0x26; // keyboardä¸Šç®­é ­
+		const char KEY_RIGHT = 0x27; // keyboardå³ç®­é ­
+		const char KEY_DOWN = 0x28; // keyboardä¸‹ç®­é ­
 		const char KEY_SPACE = ' ';
+		
 		if (nChar == KEY_SPACE) {
-			//test1.SetIsShow(!test1.IsShow());
+			//test1.SetIsShow(!test1.IsShow
+			CAudio::Instance()->Play(AUDIO_DING);
 			test1.SetIsShow(true);
+			
+			
+			
+			//hand2.SetIsShow(true);
+			
 			//test1.OnShow();
 			//test1.SetIsAlive(!test1.IsAlive());
-			if(c_practice.getX()>=430)
-				hits_left.Add(-1);
+			if(c_practice.getX()>=400)
+				hits_left.Add(+1);
+			else
+				hits_left.Add(1);
 			//
-			// ­Y³Ñ¾l¸I¼²¦¸¼Æ¬°0¡A«h¸õ¨ìGame Overª¬ºA
+			// è‹¥å‰©é¤˜ç¢°æ’æ¬¡æ•¸ç‚º0ï¼Œå‰‡è·³åˆ°Game Overç‹€æ…‹
 			//
 			if (hits_left.GetInteger() <= 0) {
-				//CAudio::Instance()->Stop(AUDIO_LAKE);	// °±¤î WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// °±¤î MIDI
+				//CAudio::Instance()->Stop(AUDIO_LAKE);	// åœæ­¢ WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// åœæ­¢ MIDI
 				GotoGameState(GAME_STATE_OVER);
 			}
 		}
 	}
 
-	void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // ³B²z·Æ¹«ªº°Ê§@
+	void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // è™•ç†æ»‘é¼ çš„å‹•ä½œ
 	{
 		
 	}
 
-	void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+	void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
 	{
 		
 	}
 
-	void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+	void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
 	{
-		// ¨S¨Æ¡C¦pªG»İ­n³B²z·Æ¹«²¾°Êªº¸Ü¡A¼gcode¦b³o¸Ì
+		// æ²’äº‹ã€‚å¦‚æœéœ€è¦è™•ç†æ»‘é¼ ç§»å‹•çš„è©±ï¼Œå¯«codeåœ¨é€™è£¡
 	}
 
-	void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // ³B²z·Æ¹«ªº°Ê§@
+	void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // è™•ç†æ»‘é¼ çš„å‹•ä½œ
 	{
 		
 	}
 
-	void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// ³B²z·Æ¹«ªº°Ê§@
+	void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// è™•ç†æ»‘é¼ çš„å‹•ä½œ
 	{
 		
 	}
@@ -456,25 +496,26 @@ namespace game_framework {
 	void CGameStateRun::OnShow()
 	{
 		//
-		//  ª`·N¡GShow¸Ì­±¤d¸U¤£­n²¾°Ê¥ô¦óª«¥óªº®y¼Ğ¡A²¾°Ê®y¼Ğªº¤u§@À³¥ÑMove°µ¤~¹ï¡A
-		//        §_«h·íµøµ¡­«·sÃ¸¹Ï®É(OnDraw)¡Aª«¥ó´N·|²¾°Ê¡A¬İ°_¨Ó·|«Ü©Ç¡C´«­Ó³N»y
-		//        »¡¡AMove­t³dMVC¤¤ªºModel¡AShow­t³dView¡A¦ÓView¤£À³§ó°ÊModel¡C
+		//  æ³¨æ„ï¼šShowè£¡é¢åƒè¬ä¸è¦ç§»å‹•ä»»ä½•ç‰©ä»¶çš„åº§æ¨™ï¼Œç§»å‹•åº§æ¨™çš„å·¥ä½œæ‡‰ç”±Moveåšæ‰å°ï¼Œ
+		//        å¦å‰‡ç•¶è¦–çª—é‡æ–°ç¹ªåœ–æ™‚(OnDraw)ï¼Œç‰©ä»¶å°±æœƒç§»å‹•ï¼Œçœ‹èµ·ä¾†æœƒå¾ˆæ€ªã€‚æ›å€‹è¡“èª
+		//        èªªï¼ŒMoveè² è²¬MVCä¸­çš„Modelï¼ŒShowè² è²¬Viewï¼Œè€ŒViewä¸æ‡‰æ›´å‹•Modelã€‚
 		//
 		//
-		//  ¶K¤W­I´º¹Ï¡B¼²À»¼Æ¡B²y¡BÀ¿¤l¡B¼u¸õªº²y
+		//  è²¼ä¸ŠèƒŒæ™¯åœ–ã€æ’æ“Šæ•¸ã€çƒã€æ“¦å­ã€å½ˆè·³çš„çƒ
 		//
 		//gamemap.OnShow();
-		background.ShowBitmap();			// ¶K¤W­I´º¹Ï
-		help.ShowBitmap();					// ¶K¤W»¡©ú¹Ï
+		background.ShowBitmap();			// è²¼ä¸ŠèƒŒæ™¯åœ–
+		help.ShowBitmap();					// è²¼ä¸Šèªªæ˜åœ–
 		hits_left.ShowBitmap();
 		if (test1.IsShow()) {
 			test1.OnShow();
 			//test1.SetIsAlive(!test1.IsAlive());
 		}
 		test1.SetIsShow(false);
-
+		hand.SetTopLeft(640 - 479, 480 - 75);
+		hand.OnShow();
 		//
-		//  ¶K¤W¥ª¤W¤Î¥k¤U¨¤¸¨ªº¹Ï
+		//  è²¼ä¸Šå·¦ä¸ŠåŠå³ä¸‹è§’è½çš„åœ–
 		//
 		corner.SetTopLeft(0, 0);
 		corner.ShowBitmap();

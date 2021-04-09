@@ -6,7 +6,7 @@ namespace game_framework {
 		ClongGray();
 		bool IsAlive();											// 是否活著
 		bool IsShow();
-		void LoadBitmap();										// 載入圖形
+		void LoadBitmap(int x);										// 載入圖形
 		//void OnMove();											// 移動
 		void OnShow();											// 將圖形貼到畫面
 		void SetXY(int nx, int ny);								// 設定座標

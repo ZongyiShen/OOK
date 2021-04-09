@@ -111,11 +111,14 @@ namespace game_framework {
 		CMovingBitmap	help;		// 說明圖
 		CMovingBitmap   test;
 		CMovingBitmap	corner;		// 角落圖
+		CMovingBitmap   hand1;
+		ClongGray		hand2;
 		CInteger		hits_left;	// 剩下的撞擊數
+		CInteger		num;
 		CMovingBitmap long_gray;
 		CPractice c_practice;
 		ClongGray test1;
-		
+		CAnimation hand;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////

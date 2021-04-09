@@ -18,8 +18,8 @@ namespace game_framework {
 	bool ClongGray::IsShow() {
 		return is_show;
 	}
-	void ClongGray::LoadBitmap() {
-		bmp.LoadBitmap(IDB_LONGGRAY);
+	void ClongGray::LoadBitmap(int x) {
+		bmp.LoadBitmap(x);
 	}
 	void ClongGray::SetIsAlive(bool alive)
 	{
