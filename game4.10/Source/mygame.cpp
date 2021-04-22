@@ -61,7 +61,10 @@
 #include <time.h>
 #include <ctime>
 #include <iostream>
+#include <vector>
+#include <fstream>
 bool times = true;
+int start,END =0;
 void delay()
 	{
 			time_t start_time, cur_time; // 变量声明
@@ -81,15 +84,17 @@ namespace game_framework {
 		: CGameState(g)
 	{
 	}
-	CPractice::CPractice() {
+	CPractice::CPractice(){
 		x = 30;
 		y = 150;
 	}
-	int i = 0;
+	int k,i = 0;
 	void CPractice::OnMove() {
+		
 		int const interval[7] = { 90,150,210,270,330,390,450 };
+		vector <int> v = { 0,0,0,6,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6 };
 		if (x <= 450) {
-			x += 6;
+			x += v[k];
 			
 		}
 		else {
@@ -143,8 +148,10 @@ namespace game_framework {
 		//
 		// 開始載入資料
 		//
-		title.LoadBitmap(IDB_TITLE1);
-		title.SetTopLeft(0, 40);
+		for (int i = IDB_BITMAP9; i < IDB_BITMAP16; i++) {
+			title1.AddBitmap(i);
+		}
+		title1.SetTopLeft(40, 80);
 		x = 450;
 		y = 70;
 		logo.LoadBitmap(IDB_INITSELECTBOX);
@@ -181,6 +188,7 @@ namespace game_framework {
 				CAudio::Instance()->Play(AUDIO_DING);
 				CAudio::Instance()->Stop(AUDIO_LAKE);
 				GotoGameState(GAME_STATE_RUN);// 切換至GAME_STATE_RUN
+				END = clock();
 			}
 			else if (y >= 270) {
 				PostMessage(AfxGetMainWnd()->m_hWnd, WM_CLOSE, 0, 0);	// 關閉遊戲
@@ -206,15 +214,19 @@ namespace game_framework {
 	{
 		GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 	}
-
+	void CGameStateInit::OnMove() {
+		title1.OnMove();
+	}
 	void CGameStateInit::OnShow()
 	{
 		//
 		// 貼上logo
 		//
 		//logo.SetTopLeft((SIZE_X - logo.Width())/2, SIZE_Y/8);
-		title.ShowBitmap();
+		//title.ShowBitmap();
 		logo.ShowBitmap();
+		title1.SetDelayCount(2);
+		title1.OnShow();
 		//
 		// Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
 		//
@@ -309,7 +321,8 @@ namespace game_framework {
 		const int BALL_GAP = 90;
 		const int BALL_XY_OFFSET = 45;
 		const int BALL_PER_ROW = 7;
-		const int HITS_LEFT = 10;
+		const int HITS_LEFT = 44;
+		int CLOCK = start;
 		const int HITS_LEFT_X = 590;
 		const int HITS_LEFT_Y = 0;
 		const int BACKGROUND_X = 60;
@@ -323,14 +336,18 @@ namespace game_framework {
 		
 		hand.SetDelayCount(1);
 		background.SetTopLeft(BACKGROUND_X, 0);				// 設定背景的起始座標
-		help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
+		//help.SetTopLeft(0, SIZE_Y - help.Height());			// 設定說明圖的起始座標
+		clocktime.SetInteger(CLOCK);
+		clocktime.SetTopLeft(0, 400);
 		hits_left.SetInteger(HITS_LEFT);					// 指定剩下的撞擊數
 		hits_left.SetTopLeft(HITS_LEFT_X, HITS_LEFT_Y);		// 指定剩下撞擊數的座標
 		//CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 		CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
-		CAudio::Instance()->Play(AUDIO_NTUT, true);			// 撥放 MIDI
-	}
+		CAudio::Instance()->Play(AUDIO_NTUT, false);			// 撥放 MIDI
 
+		
+	}
+	ofstream ofs;
 	void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		//
@@ -341,6 +358,8 @@ namespace game_framework {
 		// 移動背景圖的座標
 		//
 		
+		start = (clock()-END)-600;
+		clocktime.SetInteger(start);
 		int const min = 20;
 		int const max = 480;
 		int const minx = 0;
@@ -364,7 +383,7 @@ namespace game_framework {
 		//
 		// 移動彈跳的球
 		//
-		hand.OnMove();
+		
 		c_practice.OnMove();
 		/*
 		if (c_practice.getX() == 450 && test1.IsAlive()) {
@@ -391,14 +410,14 @@ namespace game_framework {
 		//
 		// 開始載入資料
 		//
-
+		
 		test1.LoadBitmap(177);
 		background.LoadBitmap(IDB_BACKGROUND);					// 載入背景的圖形
 		//
 		// 完成部分Loading動作，提高進度
 		//
 		ShowInitProgress(50);
-		Sleep(300); // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+		//Sleep(300); // 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 		//
 		// 繼續載入其他資料
 		//
@@ -409,12 +428,14 @@ namespace game_framework {
 		corner.LoadBitmap(IDB_CORNER);							// 載入角落圖形
 		corner.ShowBitmap(background);							// 將corner貼到background
 		//bball.LoadBitmap();										// 載入圖形
-		hits_left.LoadBitmap();
+		//hits_left.LoadBitmap();
+		clocktime.LoadBitmap();
 		c_practice.LoadBitmap();
 		//gamemap.LoadBitmap();
 		//CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
 		//CAudio::Instance()->Load(AUDIO_LAKE, "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
-		CAudio::Instance()->Load(AUDIO_NTUT, "sounds\\1-1.mp3");	// 載入編號2的聲音ntut.mid
+		CAudio::Instance()->Load(AUDIO_NTUT, "sounds\\1-11.mp3");	// 載入編號2的聲音ntut.mid
+		
 		//
 		// 此OnInit動作會接到CGameStaterOver::OnInit()，所以進度還沒到100%
 		//
@@ -428,12 +449,15 @@ namespace game_framework {
 		const char KEY_DOWN = 0x28; // keyboard下箭頭
 		const char KEY_SPACE = ' ';
 		if (nChar == KEY_SPACE) {
+			hand.OnMove();
+			
 			//test1.SetIsShow(!test1.IsShow());
 			//test1.OnShow();
 			//test1.SetIsShow(true); 2021/04/08
 		}
 	}
 	bool H = false;
+	vector <int> fuck;
 	void CGameStateRun::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 	{
 		const char KEY_LEFT = 0x25; // keyboard左箭頭
@@ -444,10 +468,12 @@ namespace game_framework {
 		
 		if (nChar == KEY_SPACE) {
 			//test1.SetIsShow(!test1.IsShow
-			CAudio::Instance()->Play(AUDIO_DING);
+			//CAudio::Instance()->Play(AUDIO_DING);
 			test1.SetIsShow(true);
+			hand.OnMove();
+			hand.Reset();
 			
-			
+			fuck.push_back(start);
 			
 			//hand2.SetIsShow(true);
 			
@@ -456,14 +482,20 @@ namespace game_framework {
 			if(c_practice.getX()>=400)
 				hits_left.Add(+1);
 			else
-				hits_left.Add(1);
+				hits_left.Add(-1);
 			//
 			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
 			if (hits_left.GetInteger() <= 0) {
 				//CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				//CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				/*ofs.open("time3.txt");
+				for (auto f : fuck) {
+					ofs << f << endl;
+				}
+				ofs.close();*/
 				GotoGameState(GAME_STATE_OVER);
+				
 			}
 		}
 	}
@@ -505,8 +537,9 @@ namespace game_framework {
 		//
 		//gamemap.OnShow();
 		background.ShowBitmap();			// 貼上背景圖
-		help.ShowBitmap();					// 貼上說明圖
-		hits_left.ShowBitmap();
+		//help.ShowBitmap();					// 貼上說明圖
+		//hits_left.ShowBitmap();
+		clocktime.ShowBitmap();
 		if (test1.IsShow()) {
 			test1.OnShow();
 			//test1.SetIsAlive(!test1.IsAlive());

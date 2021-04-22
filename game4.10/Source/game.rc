@@ -122,11 +122,27 @@ IDB_TITLE2              BITMAP                  "..\\res\\gameTitle012.bmp"
 
 IDB_LONGGRAY            BITMAP                  "..\\res\\bitmap5.bmp"
 
-IDB_BITMAP6             BITMAP                  "..\\res\\bmp00001.bmp"
-
 IDB_HAND1               BITMAP                  "..\\res\\hand1.bmp"
 
 IDB_HAND2               BITMAP                  "..\\res\\hand2.bmp"
+
+IDB_BITMAP7             BITMAP                  "..\\res\\bitmap7.bmp"
+
+IDB_BITMAP9             BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\01.bmp"
+
+IDB_BITMAP10            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\02.bmp"
+
+IDB_BITMAP11            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\03.bmp"
+
+IDB_BITMAP12            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\04.bmp"
+
+IDB_BITMAP13            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\05.bmp"
+
+IDB_BITMAP14            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\06.bmp"
+
+IDB_BITMAP15            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\07.bmp"
+
+IDB_BITMAP16            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\08.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

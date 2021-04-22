@@ -79,9 +79,11 @@ namespace game_framework {
 		void OnLButtonDown(UINT nFlags, CPoint point);  // 處理滑鼠的動作
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
+		void OnMove();
 	private:
 		CMovingBitmap logo;								// csie的logo
 		CMovingBitmap title;
+		CAnimation title1;
 		int x,y;
 	};
 
@@ -115,6 +117,7 @@ namespace game_framework {
 		ClongGray		hand2;
 		CInteger		hits_left;	// 剩下的撞擊數
 		CInteger		num;
+		CInteger		clocktime;
 		CMovingBitmap long_gray;
 		CPractice c_practice;
 		ClongGray test1;
