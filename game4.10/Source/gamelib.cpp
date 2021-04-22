@@ -233,6 +233,12 @@ int CAnimation::Width()
 	GAME_ASSERT(bmp.size() != 0,"CAnimation: Bitmaps must be loaded first.");
 	return bmp_iter->Width();
 }
+bool CAnimation::isMove() {
+	return is_move;
+}
+void CAnimation::SetIsMove(bool i) {
+	is_move = i;
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // CInteger: 這個class提供顯示整數圖形的能力
