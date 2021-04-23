@@ -156,7 +156,9 @@ namespace game_framework {
 		y = 70;
 		logo.LoadBitmap(IDB_INITSELECTBOX);
 		logo.SetTopLeft(x, y);
-		CAudio::Instance()->Load(AUDIO_DING, "sounds\\click.mp3");
+		CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding.wav");
+		CAudio::Instance()->Load(AUDIO_CLICK, "sounds\\dingT1.mp3");
+		CAudio::Instance()->Load(AUDIO_TEST, "sounds\\ding.mp3");
 		//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 		//
 		// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
@@ -364,7 +366,7 @@ namespace game_framework {
 		int const max = 480;
 		int const minx = 0;
 		int const maxx = 400;
-
+		
 		/* 產生 [min , max] 的整數亂數 */
 		int x = rand() % (max - min + 1) + min;
 		int y = rand() % (maxx + 1) + 0;
@@ -432,7 +434,7 @@ namespace game_framework {
 		clocktime.LoadBitmap();
 		c_practice.LoadBitmap();
 		//gamemap.LoadBitmap();
-		//CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding.wav");	// 載入編號0的聲音ding.wav
+		//CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding1.mp3");	// 載入編號0的聲音ding.wav
 		//CAudio::Instance()->Load(AUDIO_LAKE, "sounds\\lake.mp3");	// 載入編號1的聲音lake.mp3
 		CAudio::Instance()->Load(AUDIO_NTUT, "sounds\\1-11.mp3");	// 載入編號2的聲音ntut.mid
 		
@@ -468,7 +470,12 @@ namespace game_framework {
 		
 		if (nChar == KEY_SPACE) {
 			//test1.SetIsShow(!test1.IsShow
-			//CAudio::Instance()->Play(AUDIO_DING);
+			if (clocktime.GetInteger() - 200 < clap[abs(hits_left.GetInteger() - 44)] && clap[abs(hits_left.GetInteger() - 44)] < clocktime.GetInteger() + 200) {
+				hits_left.Add(-1);
+			}
+			else {
+				CAudio::Instance()->Play(AUDIO_DING);
+			}
 			test1.SetIsShow(true);
 			hand.OnMove();
 			hand.Reset();
@@ -479,17 +486,17 @@ namespace game_framework {
 			
 			//test1.OnShow();
 			//test1.SetIsAlive(!test1.IsAlive());
-			if(c_practice.getX()>=400)
+			/*if(c_practice.getX()>=400)
 				hits_left.Add(+1);
 			else
-				hits_left.Add(-1);
+				hits_left.Add(-1);*/
 			//
 			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
 			if (hits_left.GetInteger() <= 0) {
 				//CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
-				//CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
-				/*ofs.open("time3.txt");
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				/*ofs.open("time8.txt");
 				for (auto f : fuck) {
 					ofs << f << endl;
 				}

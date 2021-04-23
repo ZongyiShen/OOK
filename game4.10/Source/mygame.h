@@ -51,7 +51,9 @@ namespace game_framework {
 	enum AUDIO_ID {				// 定義各種音效的編號
 		AUDIO_DING,				// 0
 		AUDIO_LAKE,				// 1
-		AUDIO_NTUT				// 2
+		AUDIO_NTUT,				// 2
+		AUDIO_CLICK,
+		AUDIO_TEST
 	};
 	class CBouncingBall;
 	class CPractice {
@@ -122,6 +124,8 @@ namespace game_framework {
 		CPractice c_practice;
 		ClongGray test1;
 		CAnimation hand;
+		int c = 0;      //時間的位置
+		int clap[44] = { 11008,13416,15823,17111,18266,20691,23069,25519,26706,27896,29349,30570,31792,32951,34207,35364,36555,37780,38968,40120,41313,42538,43761,44917,45969,47365,48622,49776,51032,52219,53411,54535,55728,56917,58110,59506,60587,61908,62962,64253,66323,67518,68676,72779 };
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
