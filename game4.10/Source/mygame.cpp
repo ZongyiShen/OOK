@@ -152,13 +152,14 @@ namespace game_framework {
 			title1.AddBitmap(i);
 		}
 		title1.SetTopLeft(40, 80);
+		
 		x = 450;
 		y = 70;
 		logo.LoadBitmap(IDB_INITSELECTBOX);
 		logo.SetTopLeft(x, y);
-		CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding.wav");
+		CAudio::Instance()->Load(AUDIO_DING, "sounds\\click.mp3");
 		CAudio::Instance()->Load(AUDIO_CLICK, "sounds\\dingT1.mp3");
-		CAudio::Instance()->Load(AUDIO_TEST, "sounds\\ding.mp3");
+		
 		//Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
 		//
 		// 此OnInit動作會接到CGameStaterRun::OnInit()，所以進度還沒到100%
@@ -227,7 +228,7 @@ namespace game_framework {
 		//logo.SetTopLeft((SIZE_X - logo.Width())/2, SIZE_Y/8);
 		//title.ShowBitmap();
 		logo.ShowBitmap();
-		title1.SetDelayCount(2);
+		title1.SetDelayCount(3);
 		title1.OnShow();
 		//
 		// Demo螢幕字型的使用，不過開發時請盡量避免直接使用字型，改用CMovingBitmap比較好
@@ -359,7 +360,8 @@ namespace game_framework {
 		//
 		// 移動背景圖的座標
 		//
-		
+
+		bar.OnMove();
 		start = (clock()-END)-600;
 		clocktime.SetInteger(start);
 		int const min = 20;
@@ -423,6 +425,10 @@ namespace game_framework {
 		//
 		// 繼續載入其他資料
 		//
+		for (int i = IDB_BITMAP17; i < IDB_BITMAP27; i++) { //2021/04/23 broken leg;
+			bar.AddBitmap(i);
+		}
+		bar.SetDelayCount(7);
 		hand.AddBitmap(IDB_HAND1);
 		hand.AddBitmap(IDB_HAND2);
 		test.LoadBitmap(IDB_INITSELECTBOX);
@@ -547,10 +553,14 @@ namespace game_framework {
 		//help.ShowBitmap();					// 貼上說明圖
 		//hits_left.ShowBitmap();
 		clocktime.ShowBitmap();
+		bar.SetTopLeft(0, 220);
+		bar.OnShow();
 		if (test1.IsShow()) {
 			test1.OnShow();
 			//test1.SetIsAlive(!test1.IsAlive());
 		}
+		
+		
 		test1.SetIsShow(false);
 		hand.SetTopLeft(640 - 479, 480 - 75);
 		hand.OnShow();
@@ -562,6 +572,6 @@ namespace game_framework {
 		corner.SetTopLeft(SIZE_X - corner.Width(), SIZE_Y - corner.Height());
 		corner.ShowBitmap();
 		//gamemap.OnShow();
-		c_practice.OnShow();
+		//c_practice.OnShow();
 	}
 }
