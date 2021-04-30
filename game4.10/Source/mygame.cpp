@@ -324,7 +324,7 @@ namespace game_framework {
 		const int BALL_GAP = 90;
 		const int BALL_XY_OFFSET = 45;
 		const int BALL_PER_ROW = 7;
-		const int HITS_LEFT = 44;
+		const int HITS_LEFT = 15;
 		int CLOCK = start;
 		const int HITS_LEFT_X = 590;
 		const int HITS_LEFT_Y = 0;
@@ -351,6 +351,7 @@ namespace game_framework {
 		
 	}
 	ofstream ofs;
+	
 	void CGameStateRun::OnMove()							// 移動遊戲元素
 	{
 		//
@@ -360,34 +361,32 @@ namespace game_framework {
 		//
 		// 移動背景圖的座標
 		//
-
-		bar.OnMove();
+		background1.OnMove();
+		
 		start = (clock()-END)-600;
-		clocktime.SetInteger(start);
+		bar.OnMove();
+		//clocktime.SetInteger(start);
 		int const min = 20;
 		int const max = 480;
 		int const minx = 0;
-		int const maxx = 400;
+		int const maxx = 300;
+		/*if (start/40 == clap[c]/40) {
+			c++;
+			int x = rand() % (maxx - min + 1) + min;
+			int y = rand() % (max + 1) + 0;
+			
+			background.SetTopLeft(x,y);
+		}
+		if (start / 100 > (clap[43] / 100 )+50) {
+			c++;
+		}*/
+		
 		
 		/* 產生 [min , max] 的整數亂數 */
-		int x = rand() % (max - min + 1) + min;
-		int y = rand() % (maxx + 1) + 0;
-		if (background.Top() > SIZE_Y)
-			background.SetTopLeft(60, -background.Height());
-		background.SetTopLeft(0, 0);
+		
+		
 		
 
-		//
-		// 移動擦子
-		//
-		//
-		// 判斷擦子是否碰到球
-		//
-
-		//
-		// 移動彈跳的球
-		//
-		
 		c_practice.OnMove();
 		/*
 		if (c_practice.getX() == 450 && test1.IsAlive()) {
@@ -414,10 +413,12 @@ namespace game_framework {
 		//
 		// 開始載入資料
 		//
-		
+		c = 0;
 		test1.LoadBitmap(177);
 		background.LoadBitmap(IDB_BACKGROUND);					// 載入背景的圖形
-		//
+		background1.AddBitmap(IDB_BG1);
+		background1.AddBitmap(IDB_BG2);
+		background1.SetDelayCount(7);
 		// 完成部分Loading動作，提高進度
 		//
 		ShowInitProgress(50);
@@ -429,15 +430,15 @@ namespace game_framework {
 			bar.AddBitmap(i);
 		}
 		bar.SetDelayCount(7);
-		hand.AddBitmap(IDB_HAND1);
-		hand.AddBitmap(IDB_HAND2);
+		hand.AddBitmap(IDB_HAND1,RGB(255, 255, 255));
+		hand.AddBitmap(IDB_HAND2, RGB(255, 255, 255));
 		test.LoadBitmap(IDB_INITSELECTBOX);
 		help.LoadBitmap(IDB_HELP, RGB(255, 255, 255));				// 載入說明的圖形
 		corner.LoadBitmap(IDB_CORNER);							// 載入角落圖形
 		corner.ShowBitmap(background);							// 將corner貼到background
 		//bball.LoadBitmap();										// 載入圖形
-		//hits_left.LoadBitmap();
-		clocktime.LoadBitmap();
+		hits_left.LoadBitmap();
+		//clocktime.LoadBitmap();
 		c_practice.LoadBitmap();
 		//gamemap.LoadBitmap();
 		//CAudio::Instance()->Load(AUDIO_DING, "sounds\\ding1.mp3");	// 載入編號0的聲音ding.wav
@@ -475,14 +476,16 @@ namespace game_framework {
 		const char KEY_SPACE = ' ';
 		
 		if (nChar == KEY_SPACE) {
-			//test1.SetIsShow(!test1.IsShow
-			if (clocktime.GetInteger() - 200 < clap[abs(hits_left.GetInteger() - 44)] && clap[abs(hits_left.GetInteger() - 44)] < clocktime.GetInteger() + 200) {
-				hits_left.Add(-1);
+			//test1.SetIsShow(!test1.
+			
+			if (start - 300 < clap[c] && clap[c] < start + 300) {
+				hits_left.Add(1);
 			}
 			else {
-				CAudio::Instance()->Play(AUDIO_DING);
+				hits_left.Add(-1);
 			}
 			test1.SetIsShow(true);
+			
 			hand.OnMove();
 			hand.Reset();
 			
@@ -499,7 +502,7 @@ namespace game_framework {
 			//
 			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
-			if (hits_left.GetInteger() <= 0) {
+			if (c == 44 || hits_left.GetInteger()<=0) {
 				//CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
 				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				/*ofs.open("time8.txt");
@@ -510,6 +513,10 @@ namespace game_framework {
 				GotoGameState(GAME_STATE_OVER);
 				
 			}
+			c++;
+			int x = rand() % (400 - 20 + 1) + 20;
+			int y = rand() % (480 + 1) + 0;
+			background.SetTopLeft(x, y);
 		}
 	}
 
@@ -549,10 +556,12 @@ namespace game_framework {
 		//  貼上背景圖、撞擊數、球、擦子、彈跳的球
 		//
 		//gamemap.OnShow();
-		background.ShowBitmap();			// 貼上背景圖
-		//help.ShowBitmap();					// 貼上說明圖
-		//hits_left.ShowBitmap();
-		clocktime.ShowBitmap();
+		
+		background1.OnShow();			// 貼上背景圖
+		background.ShowBitmap();
+		help.ShowBitmap();					// 貼上說明圖
+		hits_left.ShowBitmap();
+		//clocktime.ShowBitmap();
 		bar.SetTopLeft(0, 220);
 		bar.OnShow();
 		if (test1.IsShow()) {

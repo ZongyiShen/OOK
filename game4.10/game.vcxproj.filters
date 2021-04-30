@@ -210,5 +210,131 @@
     <Image Include="RES\gameTitle012.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\..\hand1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\hand2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\02.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\03.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\04.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\05.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\06.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\07.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\08.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\hand1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\hand2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\BMP\c12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\c12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap29.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\karate1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\karate2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -172,6 +172,10 @@ IDB_BITMAP27            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL3
 
 IDB_BITMAP29            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c12.bmp"
 
+IDB_BG1                 BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\karate1.bmp"
+
+IDB_BG2                 BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\karate2.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
