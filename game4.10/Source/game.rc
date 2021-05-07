@@ -178,6 +178,8 @@ IDB_BG2                 BITMAP                  "..\\res\\karate2.bmp"
 
 IDB_BITMAP30            BITMAP                  "..\\res\\bitmap30.bmp"
 
+IDB_BITMAP30            BITMAP                  "..\\res\\bitmap30.bmp"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

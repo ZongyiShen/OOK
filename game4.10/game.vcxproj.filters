@@ -339,6 +339,8 @@
     <Image Include="res\bitmap30.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+<<<<<<< HEAD
+=======
     <Image Include="res\01.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -363,5 +365,6 @@
     <Image Include="res\08.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+>>>>>>> 4c4b9121bf0c353f197b58150a522ea56665bbcc
   </ItemGroup>
 </Project>
