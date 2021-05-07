@@ -324,7 +324,7 @@ namespace game_framework {
 		const int BALL_GAP = 90;
 		const int BALL_XY_OFFSET = 45;
 		const int BALL_PER_ROW = 7;
-		const int HITS_LEFT = 15;
+		const int HITS_LEFT = 44;
 		int CLOCK = start;
 		const int HITS_LEFT_X = 590;
 		const int HITS_LEFT_Y = 0;
@@ -426,8 +426,8 @@ namespace game_framework {
 		//
 		// 繼續載入其他資料
 		//
-		for (int i = IDB_BITMAP17; i < IDB_BITMAP27; i++) { //2021/04/23 broken leg;
-			bar.AddBitmap(i);
+		for (int i = IDB_BITMAP17; i < IDB_BITMAP27+1; i++) { //2021/04/23 broken leg;
+			bar.AddBitmap(i, RGB(255, 255, 255));
 		}
 		bar.SetDelayCount(7);
 		hand.AddBitmap(IDB_HAND1,RGB(255, 255, 255));
@@ -477,13 +477,15 @@ namespace game_framework {
 		
 		if (nChar == KEY_SPACE) {
 			//test1.SetIsShow(!test1.
-			
+			hits_left.Add(-1);
+			/*
 			if (start - 300 < clap[c] && clap[c] < start + 300) {
 				hits_left.Add(1);
 			}
 			else {
 				hits_left.Add(-1);
 			}
+			*/
 			test1.SetIsShow(true);
 			
 			hand.OnMove();
@@ -495,7 +497,8 @@ namespace game_framework {
 			
 			//test1.OnShow();
 			//test1.SetIsAlive(!test1.IsAlive());
-			/*if(c_practice.getX()>=400)
+			/*if(c_practice.getX()>=4
+			00)
 				hits_left.Add(+1);
 			else
 				hits_left.Add(-1);*/
@@ -505,7 +508,7 @@ namespace game_framework {
 			if (c == 44 || hits_left.GetInteger()<=0) {
 				//CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
 				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
-				/*ofs.open("time8.txt");
+				/*ofs.open("firsttempo2.txt");
 				for (auto f : fuck) {
 					ofs << f << endl;
 				}
