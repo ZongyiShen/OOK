@@ -347,6 +347,14 @@
     <Image Include="..\BMP\c7.bmp" />
     <Image Include="..\BMP\c8.bmp" />
     <Image Include="..\BMP\c9.bmp" />
+    <Image Include="res\01.bmp" />
+    <Image Include="res\02.bmp" />
+    <Image Include="res\03.bmp" />
+    <Image Include="res\04.bmp" />
+    <Image Include="res\05.bmp" />
+    <Image Include="res\06.bmp" />
+    <Image Include="res\07.bmp" />
+    <Image Include="res\08.bmp" />
     <Image Include="res\bitmap17.bmp" />
     <Image Include="res\bitmap18.bmp" />
     <Image Include="res\bitmap29.bmp" />
