@@ -83,7 +83,8 @@
 enum GAME_STATES {
 	GAME_STATE_INIT,
 	GAME_STATE_RUN,
-	GAME_STATE_OVER
+	GAME_STATE_OVER,
+	GAME_STATE_PASS
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -300,6 +301,7 @@ public:
 	virtual void OnRButtonUp(UINT nFlags, CPoint point) {}	// 處理滑鼠的動作
 protected:
 	void GotoGameState(int state);							// 跳躍至指定的state
+	
 	void ShowInitProgress(int percent);						// 顯示初始化的進度
 	//
 	// virtual functions, 由繼承者提供implementation
@@ -342,7 +344,7 @@ private:
 	bool            suspended;			// 遊戲是否被suspended
 	const int		NUM_GAME_STATES;	// 遊戲的狀態數(3個狀態)
 	CGameState		*gameState;			// pointer指向目前的遊戲狀態
-	CGameState		*gameStateTable[3];	// 遊戲狀態物件的pointer
+	CGameState		*gameStateTable[4];	// 遊戲狀態物件的pointer
 	static CGame	instance;			// 遊戲唯一的instance
 };
 

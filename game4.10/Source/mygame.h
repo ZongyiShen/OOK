@@ -116,7 +116,6 @@ namespace game_framework {
 		CMovingBitmap   test;
 		CMovingBitmap	corner;		// 角落圖
 		CMovingBitmap   hand1;
-		CMovingBitmap   rank;
 		ClongGray		hand2;
 		CInteger		hits_left;	// 剩下的撞擊數
 		CInteger		num;
@@ -124,6 +123,7 @@ namespace game_framework {
 		CMovingBitmap long_gray;
 		CPractice c_practice;
 		ClongGray test1;
+		vector<vector<int>> everytime;
 		bool isClick;
 		bool isGet;
 		CAnimation hand;
@@ -132,6 +132,7 @@ namespace game_framework {
 
 		int c = 0;      //時間的位置
 		int clap[44] = { 11008,13416,15823,17111,18266,20691,23069,25519,26706,27896,29349,30570,31792,32951,34207,35364,36555,37780,38968,40120,41313,42538,43761,44917,45969,47365,48622,49776,51032,52219,53411,54535,55728,56917,58110,59506,60587,61908,62962,64253,66323,67518,68676,72779 };
+		int first[44] = { 9512, 11955, 14295, 16454, 17744, 19168, 21541, 23916, 26083, 27299, 28757, 30077, 31194, 32413, 33601, 34818, 35999, 37258, 38408, 39592, 40812, 41962, 43251, 44432, 45619, 46809, 47997, 49213, 50397, 51623, 52816, 54031, 55215, 56434, 57620, 58942, 60131, 61419, 62572, 63961, 66026, 67144, 68366, 71924 };
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -142,6 +143,18 @@ namespace game_framework {
 	class CGameStateOver : public CGameState {
 	public:
 		CGameStateOver(CGame *g);
+		void OnBeginState();							// 設定每次重玩所需的變數
+		void OnInit();
+	protected:
+		void OnMove();									// 移動遊戲元素
+		void OnShow();									// 顯示這個狀態的遊戲畫面
+	private:
+		int counter;	// 倒數之計數器
+	};
+
+	class CGameStatePass : public CGameState {
+	public:
+		CGameStatePass(CGame* g);
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();
 	protected:

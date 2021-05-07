@@ -65,6 +65,7 @@
 #include <fstream>
 bool times = true;
 int start,END =0;
+int fuck0;
 void delay()
 	{
 			time_t start_time, cur_time; // 变量声明
@@ -91,29 +92,6 @@ namespace game_framework {
 	int k,i = 0;
 	void CPractice::OnMove() {
 		
-		int const interval[7] = { 90,150,210,270,330,390,450 };
-		vector <int> v = { 0,0,0,6,7,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6 };
-		if (x <= 450) {
-			x += v[k];
-			
-		}
-		else {
-			x = 30;
-			y = 150;
-		}
-		//30 90 150 210 270 330 390 450
-		if (x >= interval[i]) {
-			if (i % 2 == 0) {
-				y = 50;
-			}
-			else {
-				y = 150;
-			}
-			i++;
-		} 
-		if (x >= 450) {
-			i = 0;
-		}
 	}
 	void CPractice::LoadBitmap() {
 		pic.LoadBitmap(IDB_BITMAP4);
@@ -297,12 +275,70 @@ namespace game_framework {
 		pDC->SetBkColor(RGB(0, 0, 0));
 		pDC->SetTextColor(RGB(255, 255, 0));
 		char str[80];								// Demo 數字對字串的轉換
-		sprintf(str, "Game Over ! (%d)", counter / 30);
+		sprintf(str, "廢物! (%d)", counter / 30);
 		pDC->TextOut(240, 210, str);
 		pDC->SelectObject(fp);					// 放掉 font f (千萬不要漏了放掉)
 		CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
 	}
+	CGameStatePass::CGameStatePass(CGame* g)
+		: CGameState(g)
+	{
+		
+	}
 
+	void CGameStatePass::OnMove()
+	{
+		counter--;
+		if (counter < 0)
+			GotoGameState(GAME_STATE_INIT);
+	}
+
+	void CGameStatePass::OnBeginState()
+	{
+		counter = 30 * 5; // 5 seconds
+	}
+
+	void CGameStatePass::OnInit()
+	{
+		//
+		// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
+		//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
+		//
+		ShowInitProgress(66);	// 接個前一個狀態的進度，此處進度視為66%
+		//
+		// 開始載入資料
+		//
+		Sleep(300);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+		//
+		// 最終進度為100%
+		//
+		ShowInitProgress(100);
+	}
+
+	void CGameStatePass::OnShow()
+	{
+		CDC* pDC = CDDraw::GetBackCDC();			// 取得 Back Plain 的 CDC 
+		CFont f, * fp;
+		f.CreatePointFont(160, "Times New Roman");	// 產生 font f; 160表示16 point的字
+		fp = pDC->SelectObject(&f);					// 選用 font f
+		pDC->SetBkColor(RGB(0, 0, 0));
+		pDC->SetTextColor(RGB(255, 255, 0));
+		char str[80];
+		// Demo 數字對字串的轉換
+		if(fuck0 == 100)
+			sprintf(str, "你的評級為S ");
+		else if(fuck0 >90)
+			sprintf(str, "你的評級為A ");
+		else if(fuck0 >70)
+			sprintf(str, "你的評級為B ");
+		else if(fuck0 >50)
+			sprintf(str, "你的評級為C ");
+		else
+			sprintf(str, "你好爛 " );
+		pDC->TextOut(240, 210, str);
+		pDC->SelectObject(fp);					// 放掉 font f (千萬不要漏了放掉)
+		CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
+	}
 	/////////////////////////////////////////////////////////////////////////////
 	// 這個class為遊戲的遊戲執行物件，主要的遊戲程式都在這裡
 	/////////////////////////////////////////////////////////////////////////////
@@ -347,7 +383,19 @@ namespace game_framework {
 		//CAudio::Instance()->Play(AUDIO_LAKE, true);			// 撥放 WAVE
 		CAudio::Instance()->Play(AUDIO_DING, false);		// 撥放 WAVE
 		CAudio::Instance()->Play(AUDIO_NTUT, false);			// 撥放 MIDI
-
+		for (int i = 0; i < 44; i++)
+		{
+			int interval = (clap[i] - first[i]) / 7;
+			int s = first[i];
+			vector<int> temp;
+			for (int j = 0; j < 6; j++)
+			{
+				temp.push_back(s);
+				s += interval;
+			}
+			temp.push_back(clap[i]);
+			everytime.push_back(temp);
+		}
 		
 	}
 	ofstream ofs;
@@ -416,7 +464,7 @@ namespace game_framework {
 		isClick = false;
 		c = 0;
 		test1.LoadBitmap(177);
-		rank.LoadBitmap(IDB_BITMAP30);
+	
 		background.LoadBitmap(IDB_BACKGROUND);					// 載入背景的圖形
 		background1.AddBitmap(IDB_BG1);
 		background1.AddBitmap(IDB_BG2);
@@ -576,7 +624,7 @@ namespace game_framework {
 			}
 			c++;
 			isClick = false;
-			if (c == 44 || hits_left.GetInteger() <= 0) {
+			if (hits_left.GetInteger() <= 0) {
 				//CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
 				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
 				/*
@@ -586,11 +634,15 @@ namespace game_framework {
 				}
 				ofs.close();
 				*/
-				//GotoGameState(GAME_STATE_OVER);
+				GotoGameState(GAME_STATE_OVER);
+			}
+			if (c == 44) {
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				fuck0 = (hits_left.GetInteger() * 100 / 49);
+				GotoGameState(GAME_STATE_PASS);
+				
 			}
 		}
-		if (clap[c - 1] + 5000 <= start)
-			GotoGameState(GAME_STATE_OVER);
 		test1.SetIsShow(false);
 		hand.SetTopLeft(640 - 479, 480 - 75);
 		hand.OnShow();
