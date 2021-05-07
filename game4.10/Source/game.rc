@@ -128,53 +128,55 @@ IDB_HAND2               BITMAP                  "..\\res\\hand2.bmp"
 
 IDB_BITMAP7             BITMAP                  "..\\res\\bitmap7.bmp"
 
-IDB_BITMAP9             BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\01.bmp"
+IDB_BITMAP9             BITMAP                  "..\\res\\01.bmp"
 
-IDB_BITMAP10            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\02.bmp"
+IDB_BITMAP10            BITMAP                  "..\\res\\02.bmp"
 
-IDB_BITMAP11            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\03.bmp"
+IDB_BITMAP11            BITMAP                  "..\\res\\03.bmp"
 
-IDB_BITMAP12            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\04.bmp"
+IDB_BITMAP12            BITMAP                  "..\\res\\04.bmp"
 
-IDB_BITMAP13            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\05.bmp"
+IDB_BITMAP13            BITMAP                  "..\\res\\05.bmp"
 
-IDB_BITMAP14            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\06.bmp"
+IDB_BITMAP14            BITMAP                  "..\\res\\06.bmp"
 
-IDB_BITMAP15            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\07.bmp"
+IDB_BITMAP15            BITMAP                  "..\\res\\07.bmp"
 
-IDB_BITMAP16            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\08.bmp"
+IDB_BITMAP16            BITMAP                  "..\\res\\08.bmp"
 
 IDB_BITMAP6             BITMAP                  "..\\res\\bmp00001.bmp"
 
-IDB_BITMAP28            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\BMP\\c12.bmp"
+IDB_BITMAP28            BITMAP                  "..\\res\\c12.bmp"
 
-IDB_BITMAP17            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c1.bmp"
+IDB_BITMAP17            BITMAP                  "..\\res\\c1.bmp"
 
-IDB_BITMAP18            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c2.bmp"
+IDB_BITMAP18            BITMAP                  "..\\res\\c2.bmp"
 
-IDB_BITMAP19            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c3.bmp"
+IDB_BITMAP19            BITMAP                  "..\\res\\c3.bmp"
 
-IDB_BITMAP20            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c4.bmp"
+IDB_BITMAP20            BITMAP                  "..\\res\\c4.bmp"
 
-IDB_BITMAP21            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c5.bmp"
+IDB_BITMAP21            BITMAP                  "..\\res\\c5.bmp"
 
-IDB_BITMAP22            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c6.bmp"
+IDB_BITMAP22            BITMAP                  "..\\res\\c6.bmp"
 
-IDB_BITMAP23            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c7.bmp"
+IDB_BITMAP23            BITMAP                  "..\\res\\c7.bmp"
 
-IDB_BITMAP24            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c8.bmp"
+IDB_BITMAP24            BITMAP                  "..\\res\\c8.bmp"
 
-IDB_BITMAP25            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c9.bmp"
+IDB_BITMAP25            BITMAP                  "..\\res\\c9.bmp"
 
-IDB_BITMAP26            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c10.bmp"
+IDB_BITMAP26            BITMAP                  "..\\res\\c10.bmp"
 
-IDB_BITMAP27            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c11.bmp"
+IDB_BITMAP27            BITMAP                  "..\\res\\c11.bmp"
 
-IDB_BITMAP29            BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\c12.bmp"
+IDB_BITMAP29            BITMAP                  "..\\res\\c12.bmp"
 
-IDB_BG1                 BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\karate1.bmp"
+IDB_BG1                 BITMAP                  "..\\res\\karate1.bmp"
 
-IDB_BG2                 BITMAP                  "C:\\Users\\user\\Desktop\\OOKL37\\game4.10\\RES\\karate2.bmp"
+IDB_BG2                 BITMAP                  "..\\res\\karate2.bmp"
+
+IDB_BITMAP30            BITMAP                  "..\\res\\bitmap30.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////

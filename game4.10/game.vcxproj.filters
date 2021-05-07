@@ -336,5 +336,32 @@
     <Image Include="RES\karate2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\bitmap30.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\01.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\02.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\03.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\04.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\05.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\06.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\07.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\08.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

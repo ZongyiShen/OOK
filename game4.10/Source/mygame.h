@@ -116,6 +116,7 @@ namespace game_framework {
 		CMovingBitmap   test;
 		CMovingBitmap	corner;		// 角落圖
 		CMovingBitmap   hand1;
+		CMovingBitmap   rank;
 		ClongGray		hand2;
 		CInteger		hits_left;	// 剩下的撞擊數
 		CInteger		num;
@@ -123,6 +124,8 @@ namespace game_framework {
 		CMovingBitmap long_gray;
 		CPractice c_practice;
 		ClongGray test1;
+		bool isClick;
+		bool isGet;
 		CAnimation hand;
 		CAnimation bar;
 		CAnimation background1;

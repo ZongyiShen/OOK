@@ -297,7 +297,7 @@ namespace game_framework {
 		pDC->SetBkColor(RGB(0, 0, 0));
 		pDC->SetTextColor(RGB(255, 255, 0));
 		char str[80];								// Demo 數字對字串的轉換
-		sprintf(str, "Game JAR ! (%d)", counter / 30);
+		sprintf(str, "Game Over ! (%d)", counter / 30);
 		pDC->TextOut(240, 210, str);
 		pDC->SelectObject(fp);					// 放掉 font f (千萬不要漏了放掉)
 		CDDraw::ReleaseBackCDC();					// 放掉 Back Plain 的 CDC
@@ -324,7 +324,7 @@ namespace game_framework {
 		const int BALL_GAP = 90;
 		const int BALL_XY_OFFSET = 45;
 		const int BALL_PER_ROW = 7;
-		const int HITS_LEFT = 15;
+		const int HITS_LEFT = 5;
 		int CLOCK = start;
 		const int HITS_LEFT_X = 590;
 		const int HITS_LEFT_Y = 0;
@@ -413,8 +413,10 @@ namespace game_framework {
 		//
 		// 開始載入資料
 		//
+		isClick = false;
 		c = 0;
 		test1.LoadBitmap(177);
+		rank.LoadBitmap(IDB_BITMAP30);
 		background.LoadBitmap(IDB_BACKGROUND);					// 載入背景的圖形
 		background1.AddBitmap(IDB_BG1);
 		background1.AddBitmap(IDB_BG2);
@@ -474,15 +476,15 @@ namespace game_framework {
 		const char KEY_RIGHT = 0x27; // keyboard右箭頭
 		const char KEY_DOWN = 0x28; // keyboard下箭頭
 		const char KEY_SPACE = ' ';
-		
 		if (nChar == KEY_SPACE) {
 			//test1.SetIsShow(!test1.
+			isClick = true;
 			
-			if (start - 300 < clap[c] && clap[c] < start + 300) {
-				hits_left.Add(1);
+			if (start - 250 < clap[c] && clap[c] < start + 250) {
+				isGet = true;
 			}
 			else {
-				hits_left.Add(-1);
+				isGet = false;
 			}
 			test1.SetIsShow(true);
 			
@@ -502,18 +504,8 @@ namespace game_framework {
 			//
 			// 若剩餘碰撞次數為0，則跳到Game Over狀態
 			//
-			if (c == 44 || hits_left.GetInteger()<=0) {
-				//CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
-				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
-				/*ofs.open("time8.txt");
-				for (auto f : fuck) {
-					ofs << f << endl;
-				}
-				ofs.close();*/
-				GotoGameState(GAME_STATE_OVER);
-				
-			}
-			c++;
+
+			
 			int x = rand() % (400 - 20 + 1) + 20;
 			int y = rand() % (480 + 1) + 0;
 			background.SetTopLeft(x, y);
@@ -568,8 +560,37 @@ namespace game_framework {
 			test1.OnShow();
 			//test1.SetIsAlive(!test1.IsAlive());
 		}
-		
-		
+		//isGet = false;
+		if (clap[c]+100 <= start) { //到了一個時間點才會做判斷 而不是按空白鍵做判斷
+			if (!isClick) {
+				hits_left.Add(-1);
+			}
+			else {
+				if (isGet) {
+					hits_left.Add(1);
+				}
+				else
+				{
+					hits_left.Add(-1);
+				}
+			}
+			c++;
+			isClick = false;
+			if (c == 44 || hits_left.GetInteger() <= 0) {
+				//CAudio::Instance()->Stop(AUDIO_LAKE);	// 停止 WAVE
+				CAudio::Instance()->Stop(AUDIO_NTUT);	// 停止 MIDI
+				/*
+				ofs.open("time8.txt");
+				for (auto f : fuck) {
+					ofs << f << endl;
+				}
+				ofs.close();
+				*/
+				//GotoGameState(GAME_STATE_OVER);
+			}
+		}
+		if (clap[c - 1] + 5000 <= start)
+			GotoGameState(GAME_STATE_OVER);
 		test1.SetIsShow(false);
 		hand.SetTopLeft(640 - 479, 480 - 75);
 		hand.OnShow();
